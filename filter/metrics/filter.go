@@ -36,6 +36,7 @@ var metricFilterInstance *Filter
 
 func init() {
 	extension.SetFilter(constant.MetricsFilterKey, newFilter)
+	extension.SetFilter(constant.StatsFilterKey, newStatsFilter)
 }
 
 // Filter will calculate the invocation's duration and the report to the reporters
@@ -77,14 +78,32 @@ func newFilter() filter.Filter {
 	return metricFilterInstance
 }
 
-type StatsFilter struct {
+var statsFilterInstance *StatsFilter
 
+type StatsFilter struct {
+	StartTotal      int64
+	CompleteTotal   int64
+	ReceiveByteSize int64
+	SendByteSize    int64
 }
 
-func (p *StatsFilter) Invoke(ctx context.Context, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result  {
+func (p *StatsFilter) Invoke(ctx context.Context, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result {
 	return nil
 }
 
-func (p *StatsFilter) OnResponse(ctx context.Context, res protocol.Result, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result  {
+func (p *StatsFilter) OnResponse(ctx context.Context, res protocol.Result, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result {
+
 	return res
+}
+
+func newStatsFilter() filter.Filter {
+	if statsFilterInstance == nil {
+		statsFilterInstance = &StatsFilter{
+			StartTotal:      0,
+			CompleteTotal:   0,
+			ReceiveByteSize: 0,
+			SendByteSize:    0,
+		}
+	}
+	return statsFilterInstance
 }

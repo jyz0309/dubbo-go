@@ -86,6 +86,7 @@ const (
 	HystrixConsumerFilterKey             = "hystrix_consumer"
 	HystrixProviderFilterKey             = "hystrix_provider"
 	MetricsFilterKey                     = "metrics"
+	StatsFilterKey                       = "stats"
 	SeataFilterKey                       = "seata"
 	SentinelProviderFilterKey            = "sentinel-provider"
 	SentinelConsumerFilterKey            = "sentinel-consumer"
