@@ -76,3 +76,15 @@ func newFilter() filter.Filter {
 	}
 	return metricFilterInstance
 }
+
+type StatsFilter struct {
+
+}
+
+func (p *StatsFilter) Invoke(ctx context.Context, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result  {
+	return nil
+}
+
+func (p *StatsFilter) OnResponse(ctx context.Context, res protocol.Result, invoker protocol.Invoker, invocation protocol.Invocation) protocol.Result  {
+	return res
+}
